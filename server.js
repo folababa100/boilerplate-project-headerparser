@@ -5,7 +5,7 @@
 require('dotenv').config();
 var express = require('express');
 var useragent = require("express-useragent");
-const requestIp = require("request-ip");
+const ip = require("ip");
 
 var app = express();
 const PORT = 3000;
@@ -15,7 +15,7 @@ const PORT = 3000;
 var cors = require('cors');
 app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 app.use(useragent.express());
-app.use(requestIp.mw());
+// app.use(requestIp.mw());
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static('public'));
@@ -24,9 +24,9 @@ app.use(express.static('public'));
 
 app.get("/api/whoami", function (req, res) {
   res.json({
-    ip: req.ip,
+    ip: ip.address(),
     software: req.useragent.source,
-    languages: req.headers["accept-language"],
+    language: req.headers["accept-language"],
   });
 })
 
