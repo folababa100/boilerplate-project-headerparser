@@ -24,7 +24,7 @@ app.use(express.static('public'));
 
 app.get("/api/whoami", function (req, res) {
   res.json({
-    ip: ip.address(),
+    ipaddress: ip.address(),
     software: req.useragent.source,
     language: req.headers["accept-language"],
   });
